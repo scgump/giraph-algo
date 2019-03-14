@@ -1,0 +1,18 @@
+# Maven
+target*
+dependency-reduced-pom.xml
+
+# IntelliJ
+*.iml
+*.ipr
+*.iws
+.idea
+
+# spark local mode
+spark-warehouse/
+metastore_db/
+derby.log
+
+# other files
+.DS_Store
+*.swp
