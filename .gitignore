@@ -8,6 +8,9 @@ dependency-reduced-pom.xml
 *.iws
 .idea
 
+# wild test
+src/main/java/com/sunday/giraph/WildTest.java
+
 # spark local mode
 spark-warehouse/
 metastore_db/
