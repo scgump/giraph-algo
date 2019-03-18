@@ -2,14 +2,12 @@ package com.sunday.giraph.algo.sp;
 
 import static com.sunday.giraph.algo.sp.SingleSourceSPComputation.SOURCE_VERTEX_ID;
 
-import com.sunday.giraph.algo.cc.CCJobRunner;
 import com.sunday.giraph.combiner.ShortestPathsMsgCombiner;
 import com.sunday.giraph.util.ConfigurationUtil;
 import org.apache.commons.cli.CommandLine;
 import org.apache.giraph.conf.GiraphConfiguration;
 import org.apache.giraph.edge.ByteArrayEdges;
 import org.apache.giraph.io.formats.IdWithValueTextOutputFormat;
-import org.apache.giraph.io.formats.LongLongNullTextInputFormat;
 import org.apache.giraph.job.GiraphJob;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
@@ -41,7 +39,7 @@ public class SSSPJobRunner {
     logger.info("Parsed output path: " + outPath);
 
     // sssp specified
-    conf.setVertexInputFormatClass(LongLongNullTextInputFormat.class);
+    conf.setVertexInputFormatClass(LongSPNullTextInputFormat.class);
     conf.setComputationClass(SingleSourceSPComputation.class);
     conf.setMessageCombinerClass(ShortestPathsMsgCombiner.class);
     conf.setOutEdgesClass(ByteArrayEdges.class);
@@ -50,7 +48,7 @@ public class SSSPJobRunner {
     // for MR2, since this prop is deprecated
     conf.set("mapred.job.tracker", "non-local");
 
-    GiraphJob job = new GiraphJob(conf, CCJobRunner.class.getSimpleName());
+    GiraphJob job = new GiraphJob(conf, SSSPJobRunner.class.getSimpleName());
     FileOutputFormat.setOutputPath(job.getInternalJob(), new Path(outPath));
 
     if (job.run(true)) {

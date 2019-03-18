@@ -1,7 +1,6 @@
 package com.sunday.giraph.algo.sp;
 
 import static com.sunday.giraph.algo.sp.SingleSourceSPComputation.SOURCE_VERTEX_ID;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -13,7 +12,6 @@ import java.util.Map;
 import org.apache.giraph.conf.GiraphConfiguration;
 import org.apache.giraph.edge.ByteArrayEdges;
 import org.apache.giraph.io.formats.IdWithValueTextOutputFormat;
-import org.apache.giraph.io.formats.LongLongNullTextInputFormat;
 import org.apache.giraph.utils.InternalVertexRunner;
 import org.junit.jupiter.api.Test;
 
@@ -29,7 +27,7 @@ public class SingleSourceSPTest {
   public void simpleSSSP() throws Exception {
     GiraphConfiguration conf = new GiraphConfiguration();
 
-    conf.setVertexInputFormatClass(LongLongNullTextInputFormat.class);
+    conf.setVertexInputFormatClass(LongSPNullTextInputFormat.class);
     conf.setComputationClass(SingleSourceSPComputation.class);
     conf.setMessageCombinerClass(ShortestPathsMsgCombiner.class);
     conf.setOutEdgesClass(ByteArrayEdges.class);

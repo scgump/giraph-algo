@@ -7,11 +7,14 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 import org.apache.hadoop.io.Writable;
+import org.apache.log4j.Logger;
 
 /**
  * Storage the min distance, and paths
  */
 public class ShortestPathsWritable implements Writable {
+  private static final Logger logger = Logger.getLogger(ShortestPathsWritable.class);
+
   /** Default output delimiter */
   private static final String fieldsDel = "\t";
   private static final String pathsDel = ",";
@@ -63,11 +66,18 @@ public class ShortestPathsWritable implements Writable {
   @Override
   public void readFields(DataInput in) throws IOException {
     distance = in.readInt();
+    logger.info("Read distance: " + distance);
 
     int len = in.readInt();
+    logger.info("Read path size: " + len);
+
     paths = new LinkedList<>();
     for (int i = 0; i < len; i++) {
       paths.add(in.readLong());
+    }
+
+    for (long vid : paths) {
+      logger.info("Read path vertex: " + vid);
     }
   }
 
